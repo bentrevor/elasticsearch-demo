@@ -15,7 +15,7 @@ Each document saved to the Elasticsearch server is stored in an "index", and has
 
 It's easiest to see how Elasticsearch works through examples.  Here are some example queries that can me made to a node from the command line (after the server has been started locally on port 9200):
 
-An index is created automatically if it doesn't already exist.  This command creates a "twitter" index:
+An index is created automatically if it doesn't already exist.  This command creates a `twitter` index:
 
     curl -XPUT 'http://localhost:9200/twitter/user/kimchy' -d '{ "name" : "Shay Banon" }'
 
@@ -33,7 +33,7 @@ An index is created automatically if it doesn't already exist.  This command cre
         "message": "Another tweet, will it be indexed?" 
     }'
 
-Now our "twitter" index has a three documents: one of type "user" and id "kimchy", and two of type "tweet".  To retrieve these documents, we can use `curl -XGET` and point it to the correct url.
+Now our `twitter` index has a three documents: one of type `user` and id `kimchy`, and two of type `tweet`.  To retrieve these documents, we can use `curl -XGET` and point it to the correct url.
 
 Queries can either be specified as url parameters:
 
@@ -101,7 +101,7 @@ Now we need to tell the `index` method to only return certain results when `para
 The `search` method is provided by Tire.
 
 ### Why is my search returning already-deleted articles?
-When something gets indexed by Tire, it stays there until explicitly removed.  When I was testing out the search form, I kept seeing articles that were already deleted (and would give me a 404).  For this demo app, the easy solution was running a rake task to clear the index and re-seed the database: `rake tire:index:drop INDEX=articles`.  According to [this github issue](https://github.com/karmi/tire/issues/309), there is only a hacky workaround for selectively removing things from an index, so that should probably be accounted for when deciding whether or not to use Elasticsearch.
+When something gets indexed by Tire, it stays there until explicitly removed.  When I was testing out the search form, I kept seeing articles that were already deleted (but would give me a 404 if I tried to view them).  For this demo app, the easy solution was running a rake task to clear the index and re-seed the database: `rake tire:index:drop INDEX=articles`.  According to [this github issue](https://github.com/karmi/tire/issues/309), there is only a hacky workaround for selectively removing things from an index, so that should probably be accounted for when deciding whether or not to use Elasticsearch.
 
 ### Other options
 Apache Solr is another open-source search server built on top of Apache Lucene.  [This article](http://blog.sematext.com/2012/08/23/solr-vs-elasticsearch-part-1-overview/) and [this article](http://www.ymc.ch/en/why-we-chose-solr-4-0-instead-of-elasticsearch) are good comparisons of the benefits and drawbacks of each.  From what can tell, Solr is "more powerful" but requires more configuration, and Elasticsearch is a better option for a site that needs "basic" full-text search.  But that's not to say Elasticsearch is weak or inflexible (from the YMC article):
