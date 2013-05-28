@@ -1,0 +1,15 @@
+<h1>All articles</h1>
+
+<%= form_tag articles_path, method: :get do %>
+  <p>
+    <%= text_field_tag :query, params[ :query ] %>
+    <%= submit_tag "Search", name: nil %>
+  </p>
+<% end %>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li><h3><%= link_to article.title, article_path(article), action: :show %></h3></li>
+    <p><%= article.content %></p>
+  <% end %>
+</ul>
